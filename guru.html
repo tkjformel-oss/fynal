@@ -1,0 +1,1227 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guru TKJ</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+/* ========== LOADING SCREEN RINGAN ========== */
+.loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, #5bb0f6 0%, #ffffff 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  transition: opacity 0.5s ease;
+}
+
+.loading-screen.fade-out {
+  opacity: 0;
+}
+
+/* Simple Particles */
+.loading-particles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  opacity: 0.3;
+}
+
+.loading-particle {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  animation: simple-float linear infinite;
+}
+
+@keyframes simple-float {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(-100vh);
+    opacity: 0;
+  }
+}
+
+/* Logo Container */
+.loading-content {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+}
+
+.logo-loading {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 30px;
+}
+
+.logo-loading img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 4px solid #fff;
+  box-shadow: 0 10px 40px rgba(91, 176, 246, 0.4);
+  animation: pulse-logo 2s ease-in-out infinite;
+}
+
+@keyframes pulse-logo {
+  0%, 100% { 
+    transform: scale(1);
+    box-shadow: 0 10px 40px rgba(91, 176, 246, 0.4);
+  }
+  50% { 
+    transform: scale(1.1);
+    box-shadow: 0 15px 50px rgba(255, 193, 7, 0.6);
+  }
+}
+
+/* Loading Text */
+.loading-text {
+  font-size: 2em;
+  font-weight: 800;
+  color: #001f4d;
+  text-align: center;
+  margin-bottom: 20px;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+/* Spinner */
+.spinner {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 20px;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #ffc107;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Progress Bar */
+.progress-wrapper {
+  width: 300px;
+  margin: 0 auto;
+}
+
+.progress-container {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(91, 176, 246, 0.2);
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #5bb0f6, #ffc107);
+  border-radius: 10px;
+  width: 0%;
+  transition: width 0.3s ease;
+}
+
+.percentage {
+  text-align: center;
+  font-size: 1.2em;
+  font-weight: 700;
+  color: #001f4d;
+  margin-top: 15px;
+}
+
+/* Responsive Loading */
+@media (max-width: 768px) {
+  .logo-loading {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .loading-text {
+    font-size: 1.6em;
+  }
+  
+  .progress-wrapper {
+    width: 250px;
+  }
+  
+  .spinner {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo-loading {
+    width: 90px;
+    height: 90px;
+  }
+  
+  .loading-text {
+    font-size: 1.4em;
+  }
+  
+  .progress-wrapper {
+    width: 220px;
+  }
+  
+  .spinner {
+    width: 45px;
+    height: 45px;
+    border-width: 3px;
+  }
+
+  .percentage {
+    font-size: 1em;
+  }
+}
+
+/* ========== MAIN WEBSITE STYLES ========== */
+body {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #5bb0f6 0%, #ffffff 100%);
+  color: #001f4d;
+  position: relative;
+  overflow-x: hidden;
+  padding-top: 100px;
+  padding-bottom: 50px;
+}
+
+.particles {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+  top: 0;
+  left: 0;
+}
+
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  animation: float-particle 15s infinite;
+}
+
+@keyframes float-particle {
+  0%, 100% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% {
+    transform: translateY(-100vh) translateX(100px);
+    opacity: 0;
+  }
+}
+
+.tkj-decor {
+  position: fixed;
+  opacity: 0.15;
+  animation: float 10s infinite ease-in-out alternate;
+  z-index: 0;
+  filter: drop-shadow(0 0 10px rgba(91, 176, 246, 0.3));
+}
+
+@keyframes float {
+  0%, 100% { 
+    transform: translateY(0) rotate(0deg); 
+  }
+  50% { 
+    transform: translateY(-30px) rotate(10deg); 
+  }
+}
+
+.router { top: 10%; left: 10%; width: 70px; animation-delay: 0s; }
+.cpu { top: 60%; left: 80%; width: 70px; animation-delay: 2s; }
+.chip { top: 30%; left: 75%; width: 60px; animation-delay: 4s; }
+.gear { top: 75%; left: 15%; width: 80px; animation-delay: 1s; }
+.lan { top: 45%; left: 5%; width: 60px; animation-delay: 3s; }
+
+.navbar {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.25);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(20px);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 40px;
+  box-shadow: 0 4px 20px rgba(91, 176, 246, 0.1);
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.navbar .logo {
+  width: 65px;
+  height: 65px;
+  border: 3px solid #fff;
+  border-radius: 50%;
+  background: white;
+  object-fit: cover;
+  box-shadow: 0 5px 20px rgba(91, 176, 246, 0.3);
+  transition: transform 0.3s;
+}
+
+.navbar .logo:hover {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.navbar .menu {
+  display: flex;
+  gap: 10px;
+}
+
+.navbar .menu a {
+  text-decoration: none;
+  color: #001f4d;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 25px;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.navbar .menu a:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 193, 7, 0.3), transparent);
+  transition: left 0.5s;
+}
+
+.navbar .menu a:hover:before {
+  left: 100%;
+}
+
+.navbar .menu a:hover {
+  background: #ffc107;
+  color: #001f4d;
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(255, 193, 7, 0.3);
+}
+
+.navbar .menu a:active {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(255, 193, 7, 0.3);
+}
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.hamburger div {
+  width: 28px;
+  height: 3px;
+  background: #001f4d;
+  border-radius: 3px;
+  transition: all 0.3s;
+}
+
+.hamburger:hover div {
+  background: #ffc107;
+}
+
+.section {
+  max-width: 1100px;
+  margin: 30px auto;
+  background: rgba(255, 255, 255, 0.35);
+  border: 3px solid rgba(255, 255, 255, 0.5);
+  border-radius: 30px;
+  padding: 50px 60px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 15px 50px rgba(0, 31, 77, 0.1);
+  position: relative;
+  z-index: 2;
+  animation: fadeIn 0.8s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.section h2 {
+  margin-bottom: 50px;
+  color: #001f4d;
+  text-align: center;
+  font-size: 2.5em;
+  font-weight: 800;
+  text-shadow: 0 3px 10px rgba(91, 176, 246, 0.2);
+  background: linear-gradient(135deg, #001f4d 0%, #5bb0f6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.guru-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.guru-card {
+  flex: 1;
+  min-width: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border: 3px solid rgba(255, 255, 255, 0.6);
+  border-radius: 25px;
+  padding: 35px 25px;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 30px rgba(91, 176, 246, 0.15);
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.guru-card:before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent, rgba(91, 176, 246, 0.1), transparent);
+  transform: rotate(45deg);
+  transition: all 0.6s;
+}
+
+.guru-card:hover:before {
+  left: 100%;
+  top: 100%;
+}
+
+.guru-card:hover {
+  transform: translateY(-15px) scale(1.05);
+  box-shadow: 0 20px 50px rgba(91, 176, 246, 0.3);
+  border-color: #ffc107;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.guru-card:active {
+  transform: translateY(-10px) scale(1.02);
+}
+
+.img-container {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.img-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 130px;
+  height: 130px;
+  border: 2px dashed rgba(91, 176, 246, 0.3);
+  border-radius: 50%;
+  animation: rotate 20s linear infinite;
+}
+
+@keyframes rotate {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.guru-card img {
+  width: 110px;
+  height: 110px;
+  border: 4px solid #ffffff;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 8px 25px rgba(91, 176, 246, 0.3);
+  transition: all 0.4s;
+  position: relative;
+  z-index: 1;
+}
+
+.guru-card:hover img {
+  transform: scale(1.15);
+  box-shadow: 0 12px 35px rgba(255, 193, 7, 0.4);
+  border-color: #ffc107;
+}
+
+.guru-card .name {
+  font-weight: 700;
+  color: #001f4d;
+  font-size: 1.15em;
+  line-height: 1.6;
+  position: relative;
+  z-index: 1;
+  margin-bottom: 8px;
+}
+
+.guru-card .role {
+  font-weight: 600;
+  color: #5bb0f6;
+  font-size: 0.95em;
+  position: relative;
+  z-index: 1;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background: rgba(0, 31, 77, 0.85);
+  backdrop-filter: blur(10px);
+}
+
+.modal.show {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.3s;
+}
+
+.modal-content {
+  position: relative;
+  background: linear-gradient(135deg, 
+    rgba(255, 254, 250, 0.98) 0%, 
+    rgba(255, 250, 235, 0.96) 100%);
+  margin: 20px;
+  padding: 0;
+  border-radius: 30px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 
+    0 30px 80px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.8) inset,
+    0 0 80px rgba(255, 200, 100, 0.2);
+  overflow: hidden;
+  animation: modalSlide 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes modalSlide {
+  from {
+    opacity: 0;
+    transform: scale(0.7) translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.modal-header {
+  background: linear-gradient(135deg, #f4bd76 0%, #f0a952 100%);
+  padding: 25px 20px 55px;
+  position: relative;
+  overflow: hidden;
+}
+
+.modal-header::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 150px;
+  height: 150px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  animation: pulse 4s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 0.3; }
+  50% { transform: scale(1.2); opacity: 0.5; }
+}
+
+.close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.25);
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  color: #fff;
+  font-size: 22px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s;
+  z-index: 10;
+  backdrop-filter: blur(10px);
+}
+
+.close:hover {
+  background: #fff;
+  border-color: #fff;
+  transform: rotate(180deg) scale(1.1);
+  color: #f0a952;
+}
+
+.modal-img-container {
+  position: relative;
+  z-index: 2;
+  margin-top: -45px;
+  display: flex;
+  justify-content: center;
+}
+
+.modal-img-wrapper {
+  position: relative;
+  width: 110px;
+  height: 110px;
+}
+
+.modal-img-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 130px;
+  height: 130px;
+  border: 2px solid rgba(240, 169, 82, 0.4);
+  border-radius: 50%;
+  animation: rotate 20s linear infinite;
+}
+
+.modal-img-ring::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  background: #f4bd76;
+  border-radius: 50%;
+  box-shadow: 0 0 12px #f4bd76;
+}
+
+.modal-img {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  border: 4px solid #fff;
+  box-shadow: 
+    0 10px 35px rgba(240, 169, 82, 0.3),
+    0 0 0 2px rgba(240, 169, 82, 0.25);
+  display: block;
+  object-fit: cover;
+  position: relative;
+  z-index: 1;
+  animation: floatModal 3s ease-in-out infinite;
+}
+
+@keyframes floatModal {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.modal-body {
+  padding: 18px 22px 28px;
+}
+
+.modal-content h3 {
+  text-align: center;
+  color: #5a3e00;
+  font-size: 1.4em;
+  margin-bottom: 6px;
+  font-weight: 800;
+}
+
+.role-modal {
+  text-align: center;
+  color: #d68910;
+  font-size: 1em;
+  font-weight: 600;
+  margin-bottom: 18px;
+  position: relative;
+}
+
+.role-modal::after {
+  content: '';
+  position: absolute;
+  bottom: -7px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 45px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #f4bd76, transparent);
+}
+
+.modal-info {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.info-item {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 252, 245, 0.7) 100%);
+  border: 2px solid rgba(240, 169, 82, 0.25);
+  border-radius: 14px;
+  padding: 10px 13px;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  transition: all 0.3s;
+}
+
+.info-item:hover {
+  transform: translateX(6px);
+  border-color: #f4bd76;
+  background: rgba(255, 248, 230, 0.9);
+}
+
+.info-icon {
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg, #f4bd76 0%, #f0a952 100%);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1em;
+  flex-shrink: 0;
+  box-shadow: 0 3px 12px rgba(240, 169, 82, 0.3);
+}
+
+.info-text {
+  flex: 1;
+  color: #5a3e00;
+  font-weight: 500;
+  line-height: 1.5;
+  font-size: 0.82em;
+}
+
+.info-text strong {
+  color: #d68910;
+  font-weight: 700;
+  display: block;
+  margin-bottom: 2px;
+  font-size: 0.83em;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+@media (max-width: 992px) {
+  .guru-row {
+    justify-content: center;
+  }
+  
+  .guru-card {
+    flex: 0 1 calc(50% - 15px);
+    min-width: 220px;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    padding-top: 90px;
+  }
+
+  .navbar {
+    padding: 10px 20px;
+  }
+  
+  .logo-container {
+    gap: 10px;
+  }
+  
+  .navbar .logo {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .navbar .menu {
+    display: none;
+    flex-direction: column;
+    background: rgba(255, 255, 255, 0.95);
+    position: absolute;
+    top: 75px;
+    right: 20px;
+    padding: 15px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 31, 77, 0.2);
+    backdrop-filter: blur(20px);
+    min-width: 180px;
+  }
+  
+  .navbar .menu.active {
+    display: flex;
+    animation: slideDownMenu 0.3s ease-out;
+  }
+  
+  @keyframes slideDownMenu {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .hamburger {
+    display: flex;
+  }
+  
+  .section {
+    padding: 30px 20px;
+    margin: 20px 15px;
+  }
+  
+  .section h2 {
+    font-size: 1.8em;
+    margin-bottom: 30px;
+  }
+  
+  .guru-row {
+    gap: 20px;
+  }
+  
+  .guru-card {
+    flex: 0 1 100%;
+    max-width: 350px;
+    padding: 30px 20px;
+  }
+  
+  .guru-card img {
+    width: 90px;
+    height: 90px;
+  }
+  
+  .img-ring {
+    width: 110px;
+    height: 110px;
+  }
+
+  .modal-content {
+    max-width: 360px;
+    border-radius: 25px;
+  }
+  .modal-header { padding: 22px 18px 50px; }
+  .modal-body { padding: 16px 20px 25px; }
+  .modal-content h3 { font-size: 1.3em; }
+  .info-item { padding: 9px 12px; gap: 10px; }
+  .info-icon { width: 33px; height: 33px; font-size: 1em; }
+  .info-text { font-size: 0.78em; }
+
+  .tkj-decor {
+    width: 50px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  body { padding-top: 90px; }
+  .logo-container { gap: 8px; }
+  .navbar .logo { width: 45px; height: 45px; border-width: 2px; }
+  
+  .section h2 {
+    font-size: 1.5em;
+  }
+
+  .guru-card {
+    padding: 25px 15px;
+  }
+
+  .guru-card img {
+    width: 80px;
+    height: 80px;
+  }
+
+  .img-ring {
+    width: 100px;
+    height: 100px;
+  }
+
+  .guru-card .name {
+    font-size: 1em;
+  }
+
+  .modal-content {
+    max-width: 330px;
+    border-radius: 22px;
+  }
+  
+  .modal-header { padding: 18px 15px 45px; }
+  .modal-body { padding: 14px 18px 22px; }
+  
+  .modal-img-wrapper { width: 95px; height: 95px; }
+  .modal-img { 
+    width: 95px; 
+    height: 95px;
+    border-width: 4px;
+  }
+  .modal-img-ring { 
+    width: 115px; 
+    height: 115px;
+  }
+  
+  .close {
+    width: 32px;
+    height: 32px;
+    font-size: 20px;
+    top: 10px;
+    right: 10px;
+  }
+  
+  .modal-content h3 { font-size: 1.15em; }
+  .role-modal { font-size: 0.92em; margin-bottom: 16px; }
+  .info-item { 
+    padding: 8px 10px;
+    gap: 9px;
+    border-radius: 12px;
+  }
+  .info-icon { 
+    width: 30px; 
+    height: 30px; 
+    font-size: 0.95em;
+  }
+  .info-text { font-size: 0.74em; }
+  .info-text strong { font-size: 0.8em; }
+}
+</style>
+</head>
+<body>
+
+<!-- LOADING SCREEN RINGAN -->
+<div class="loading-screen" id="loadingScreen">
+  <!-- Simple Particles -->
+  <div class="loading-particles" id="loadingParticles"></div>
+  
+  <!-- Main Content -->
+  <div class="loading-content">
+    <!-- Logo -->
+    <div class="logo-loading">
+      <img src="logo_tkj-removebg-preview.jpeg" alt="TKJ Logo">
+    </div>
+    
+    <!-- Text -->
+    <div class="loading-text">LOADING...</div>
+    
+    <!-- Spinner -->
+    <div class="spinner"></div>
+    
+    <!-- Progress Bar -->
+    <div class="progress-wrapper">
+      <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+    </div>
+    
+    <!-- Percentage -->
+    <div class="percentage" id="percentage">0%</div>
+  </div>
+</div>
+
+<div class="particles" id="particles"></div>
+
+<svg class="tkj-decor router" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="#001f4d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M2 17L12 22L22 17" stroke="#001f4d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M2 12L12 17L22 12" stroke="#001f4d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+
+<svg class="tkj-decor cpu" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="9" y="9" width="6" height="6" stroke="#001f4d" stroke-width="2"/>
+  <path d="M9 1V6M15 1V6M9 18V23M15 18V23M1 9H6M1 15H6M18 9H23M18 15H23" stroke="#001f4d" stroke-width="2"/>
+</svg>
+
+<svg class="tkj-decor chip" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="5" y="5" width="14" height="14" rx="2" stroke="#001f4d" stroke-width="2"/>
+  <circle cx="12" cy="12" r="3" stroke="#001f4d" stroke-width="2"/>
+</svg>
+
+<svg class="tkj-decor gear" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="12" cy="12" r="3" stroke="#001f4d" stroke-width="2"/>
+  <path d="M12 1V4M12 20V23M23 12H20M4 12H1M20.49 20.49L18.36 18.36M5.64 5.64L3.51 3.51M20.49 3.51L18.36 5.64M5.64 18.36L3.51 20.49" stroke="#001f4d" stroke-width="2"/>
+</svg>
+
+<svg class="tkj-decor lan" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="12" cy="12" r="10" stroke="#001f4d" stroke-width="2"/>
+  <path d="M2 12H22M12 2C14.5 4.5 16 8 16 12C16 16 14.5 19.5 12 22M12 2C9.5 4.5 8 8 8 12C8 16 9.5 19.5 12 22" stroke="#001f4d" stroke-width="2"/>
+</svg>
+
+<div class="navbar">
+  <div class="logo-container">
+    <img src="LOGO SMK.jpeg" class="logo" alt="Logo Sekolah">
+    <img src="logo_tkj-removebg-preview.jpeg" class="logo" alt="Logo TKJ">
+  </div>
+  <div class="menu">
+    <a href="guru.html">Guru</a>
+    <a href="murid.html">Murid</a>
+    <a href="struktur.html">Struktur</a>
+    <a href="peraturan.html">Peraturan</a>
+    <a href="galeri.html">Galeri</a>
+    <a href="kontak.html">Kontak</a>
+  </div>
+  <div class="hamburger" onclick="toggleMenu()">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+</div>
+<div class="section">
+  <h2>👨‍🏫 Guru & Pembimbing</h2>
+  <div class="guru-row">
+    <div class="guru-card" onclick="showBiodata('guru1')">
+      <div class="img-container">
+        <div class="img-ring"></div>
+        <img src="yuli-min.jpeg" alt="Guru 1">
+      </div>
+      <span class="name">Yulida Erliani S.Pd</span>
+      <span class="role">Guru TKJ</span>
+    </div>
+    <div class="guru-card" onclick="showBiodata('guru2')">
+      <div class="img-container">
+        <div class="img-ring"></div>
+        <img src="ri-min.jpeg" alt="Guru 2">
+      </div>
+      <span class="name">Rinawati S.Kom</span>
+      <span class="role">Guru TKJ Produktif</span>
+    </div>
+    <div class="guru-card" onclick="showBiodata('guru3')">
+      <div class="img-container">
+        <div class="img-ring"></div>
+        <img src="a-min.jpeg" alt="Guru 3">
+      </div>
+      <span class="name">Aziz Muslim S.Pd</span>
+      <span class="role">Guru TKJ</span>
+    </div>
+  </div>
+</div>
+
+<div id="biodataModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="close" onclick="closeModal()">&times;</span>
+    </div>
+    <div class="modal-img-container">
+      <div class="modal-img-wrapper">
+        <div class="modal-img-ring"></div>
+        <img id="modalImg" src="" alt="Foto Guru" class="modal-img">
+      </div>
+    </div>
+    <div class="modal-body">
+      <h3 id="modalName"></h3>
+      <p class="role-modal" id="modalRole"></p>
+      <div class="modal-info" id="biodataList"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ========== LOADING SCREEN RINGAN ==========
+
+window.addEventListener('load', function() {
+  const loadingScreen = document.getElementById('loadingScreen');
+  const percentage = document.getElementById('percentage');
+  const progressBar = document.getElementById('progressBar');
+  
+  let progress = 0;
+  
+  // Simple progress animation
+  const progressInterval = setInterval(() => {
+    if (progress < 100) {
+      progress += 2;
+      percentage.textContent = Math.floor(progress) + '%';
+      progressBar.style.width = progress + '%';
+    } else {
+      clearInterval(progressInterval);
+      
+      setTimeout(() => {
+        loadingScreen.classList.add('fade-out');
+        setTimeout(() => {
+          loadingScreen.style.display = 'none';
+        }, 500);
+      }, 200);
+    }
+  }, 30);
+});
+
+// Simple Particles (hanya 10 partikel)
+const loadingParticles = document.getElementById('loadingParticles');
+for (let i = 0; i < 10; i++) {
+  const particle = document.createElement('div');
+  particle.className = 'loading-particle';
+  particle.style.width = particle.style.height = (Math.random() * 4 + 2) + 'px';
+  particle.style.left = Math.random() * 100 + '%';
+  particle.style.bottom = '-10px';
+  particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+  particle.style.animationDelay = Math.random() * 2 + 's';
+  loadingParticles.appendChild(particle);
+}
+
+// ========== MAIN WEBSITE SCRIPT ==========
+
+function toggleMenu() {
+  const menu = document.querySelector('.navbar .menu');
+  menu.classList.toggle('active');
+}
+
+const biodataGuru = {
+  guru1: {
+    img: 'yuli-min.jpeg',
+    nama: 'Yulida Erliani S.Pd',
+    jabatan: 'Guru TKJ',
+    npy: '202103017801',
+    pendidikan: 'S1 Pendidikan Ilmu Komputer',
+    alamat: 'Banyu Tajun Pangkalan',
+    tmt: '01 Maret 2021'
+  },
+  guru2: {
+    img: 'ri-min.jpeg',
+    nama: 'Rinawati S.Kom',
+    jabatan: 'Guru TKJ Produktif',
+    npy: '201707175901',
+    pendidikan: 'S1 Teknik Informatika',
+    alamat: 'Bitin',
+    tmt: '17 Juli 2017'
+  },
+  guru3: {
+    img: 'a-min.jpeg',
+    nama: 'Aziz Muslim S.Pd',
+    jabatan: 'Guru TKJ',
+    npy: '201401014101',
+    pendidikan: 'S1 Pendidikan Ilmu Komputer',
+    alamat: 'Danau Panggang',
+    tmt: '01 Januari 2015'
+  }
+};
+
+function showBiodata(guruId) {
+  const data = biodataGuru[guruId];
+  const modal = document.getElementById('biodataModal');
+  
+  document.getElementById('modalImg').src = data.img;
+  document.getElementById('modalName').textContent = data.nama;
+  document.getElementById('modalRole').textContent = data.jabatan;
+  
+  const biodataList = document.getElementById('biodataList');
+  biodataList.innerHTML = `
+    <div class="info-item">
+      <div class="info-icon">🆔</div>
+      <div class="info-text">
+        <strong>NPY</strong>
+        ${data.npy}
+      </div>
+    </div>
+    <div class="info-item">
+      <div class="info-icon">🎓</div>
+      <div class="info-text">
+        <strong>Pendidikan</strong>
+        ${data.pendidikan}
+      </div>
+    </div>
+    <div class="info-item">
+      <div class="info-icon">📍</div>
+      <div class="info-text">
+        <strong>Alamat</strong>
+        ${data.alamat}
+      </div>
+    </div>
+    <div class="info-item">
+      <div class="info-icon">💼</div>
+      <div class="info-text">
+        <strong>Jabatan</strong>
+        ${data.jabatan}
+      </div>
+    </div>
+    <div class="info-item">
+      <div class="info-icon">📅</div>
+      <div class="info-text">
+        <strong>TMT</strong>
+        ${data.tmt}
+      </div>
+    </div>
+  `;
+  
+  modal.classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  const modal = document.getElementById('biodataModal');
+  modal.classList.remove('show');
+  document.body.style.overflow = 'auto';
+}
+
+window.onclick = function(event) {
+  const modal = document.getElementById('biodataModal');
+  if (event.target == modal) {
+    closeModal();
+  }
+}
+
+const particlesContainer = document.getElementById('particles');
+for (let i = 0; i < 30; i++) {
+  const particle = document.createElement('div');
+  particle.className = 'particle';
+  particle.style.left = Math.random() * 100 + '%';
+  particle.style.animationDelay = Math.random() * 15 + 's';
+  particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+  particlesContainer.appendChild(particle);
+}
+</script>
+
+</body>
+</html

@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Murid 11 TKJ</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+/* ========== LOADING SCREEN ========== */
+.loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, #5bb0f6 0%, #ffffff 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  transition: opacity 0.5s ease;
+}
+
+.loading-screen.fade-out {
+  opacity: 0;
+}
+
+.loading-particles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  opacity: 0.3;
+}
+
+.loading-particle {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  animation: simple-float linear infinite;
+}
+
+@keyframes simple-float {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(-100vh);
+    opacity: 0;
+  }
+}
+
+.loading-content {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+}
+
+.logo-loading {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 30px;
+}
+
+.logo-loading img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 4px solid #fff;
+  box-shadow: 0 10px 40px rgba(91, 176, 246, 0.4);
+  animation: pulse-logo 2s ease-in-out infinite;
+}
+
+@keyframes pulse-logo {
+  0%, 100% { 
+    transform: scale(1);
+    box-shadow: 0 10px 40px rgba(91, 176, 246, 0.4);
+  }
+  50% { 
+    transform: scale(1.1);
+    box-shadow: 0 15px 50px rgba(255, 193, 7, 0.6);
+  }
+}
+
+.loading-text {
+  font-size: 2em;
+  font-weight: 800;
+  color: #001f4d;
+  text-align: center;
+  margin-bottom: 20px;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.spinner {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 20px;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #ffc107;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.progress-wrapper {
+  width: 300px;
+  margin: 0 auto;
+}
+
+.progress-container {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(91, 176, 246, 0.2);
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #5bb0f6, #ffc107);
+  border-radius: 10px;
+  width: 0%;
+  transition: width 0.3s ease;
+}
+
+.percentage {
+  text-align: center;
+  font-size: 1.2em;
+  font-weight: 700;
+  color: #001f4d;
+  margin-top: 15px;
+}
+
+@media (max-width: 768px) {
+  .logo-loading {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .loading-text {
+    font-size: 1.6em;
+  }
+  
+  .progress-wrapper {
+    width: 250px;
+  }
+  
+  .spinner {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo-loading {
+    width: 90px;
+    height: 90px;
+  }
+  
+  .loading-text {
+    font-size: 1.4em;
+  }
+  
+  .progress-wrapper {
+    width: 220px;
+  }
+  
+  .spinner {
+    width: 45px;
+    height: 45px;
+    border-width: 3px;
+  }
+
+  .percentage {
+    font-size: 1em;
+  }
+}
+
+/* ========== MAIN STYLES ========== */
+body {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #5bb0f6 0%, #ffffff 100%);
+  color: #001f4d;
+  position: relative;
+  overflow-x: hidden;
+  padding-top: 100px;
+  padding-bottom: 50px;
+}
+
+.particles {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+  top: 0;
+  left: 0;
+}
+
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  animation: float-particle 15s infinite;
+}
+
+@keyframes float-particle {
+  0%, 100% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% {
+    transform: translateY(-100vh) translateX(100px);
+    opacity: 0;
+  }
+}
+
+.tkj-decor {
+  position: fixed;
+  opacity: 0.15;
+  animation: float 10s infinite ease-in-out alternate;
+  z-index: 0;
+}
+
+@keyframes float {
+  0%, 100% { 
+    transform: translateY(0) rotate(0deg); 
+  }
+  50% { 
+    transform: translateY(-30px) rotate(10deg); 
+  }
+}
+
+.router { top: 10%; left: 10%; width: 70px; }
+.cpu { top: 60%; left: 80%; width: 70px; }
+
+.navbar {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.25);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(20px);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 40px;
+  box-shadow: 0 4px 20px rgba(91, 176, 246, 0.1);
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.navbar .logo {
+  width: 65px;
+  height: 65px;
+  border: 3px solid #fff;
+  border-radius: 50%;
+  background: white;
+  object-fit: cover;
+  box-shadow: 0 5px 20px rgba(91, 176, 246, 0.3);
+  transition: transform 0.3s;
+}
+
+.navbar .logo:hover {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.navbar .menu {
+  display: flex;
+  gap: 10px;
+}
+
+.navbar .menu a {
+  text-decoration: none;
+  color: #001f4d;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 25px;
+  transition: all 0.3s;
+}
+
+.navbar .menu a:hover {
+  background: #ffc107;
+  color: #001f4d;
+  transform: translateY(-3px);
+}
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.hamburger div {
+  width: 28px;
+  height: 3px;
+  background: #001f4d;
+  border-radius: 3px;
+}
+
+.section {
+  max-width: 1200px;
+  margin: 30px auto;
+  background: rgba(255, 255, 255, 0.35);
+  border: 3px solid rgba(255, 255, 255, 0.5);
+  border-radius: 30px;
+  padding: 50px 60px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 15px 50px rgba(0, 31, 77, 0.1);
+  position: relative;
+  z-index: 2;
+}
+
+.section h2 {
+  margin-bottom: 30px;
+  color: #001f4d;
+  text-align: center;
+  font-size: 2.5em;
+  font-weight: 800;
+  background: linear-gradient(135deg, #001f4d 0%, #5bb0f6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.student-count {
+  text-align: center;
+  margin-bottom: 30px;
+  padding: 15px 30px;
+  background: rgba(255, 193, 7, 0.2);
+  border-radius: 50px;
+  display: inline-block;
+  font-weight: 700;
+  color: #001f4d;
+  font-size: 1.1em;
+  border: 2px solid rgba(255, 193, 7, 0.4);
+  margin-left: 50%;
+  transform: translateX(-50%);
+}
+
+.murid-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 20px;
+  justify-items: center;
+}
+
+.murid-card {
+  width: 100%;
+  max-width: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border: 3px solid rgba(255, 255, 255, 0.6);
+  border-radius: 25px;
+  padding: 20px 12px;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 25px rgba(91, 176, 246, 0.15);
+  transition: all 0.4s;
+  cursor: pointer;
+}
+
+.murid-card:hover {
+  transform: translateY(-12px) scale(1.05);
+  box-shadow: 0 18px 45px rgba(91, 176, 246, 0.3);
+  border-color: #ffc107;
+}
+
+.murid-card img {
+  width: 75px;
+  height: 75px;
+  border: 3px solid #ffffff;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 6px 20px rgba(91, 176, 246, 0.3);
+  margin-bottom: 12px;
+}
+
+.murid-card .name {
+  font-weight: 700;
+  color: #001f4d;
+  font-size: 0.9em;
+  line-height: 1.4;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background: rgba(0, 31, 77, 0.85);
+  backdrop-filter: blur(10px);
+}
+
+.modal.show {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.3s;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal-content {
+  position: relative;
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.98) 0%, 
+    rgba(255, 248, 220, 0.95) 100%);
+  margin: 20px;
+  padding: 0;
+  border-radius: 30px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 
+    0 30px 80px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.8) inset,
+    0 0 100px rgba(255, 193, 7, 0.3);
+  overflow: hidden;
+  animation: modalSlide 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes modalSlide {
+  from {
+    opacity: 0;
+    transform: scale(0.7) translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.modal-header {
+  background: linear-gradient(135deg, #5bb0f6 0%, #4a9de8 100%);
+  padding: 25px 20px 55px;
+  position: relative;
+  overflow: hidden;
+}
+
+.modal-header::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 150px;
+  height: 150px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  animation: pulse 4s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 0.3; }
+  50% { transform: scale(1.2); opacity: 0.5; }
+}
+
+.close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  color: #fff;
+  font-size: 22px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s;
+  z-index: 10;
+  backdrop-filter: blur(10px);
+}
+
+.close:hover {
+  background: #ffc107;
+  border-color: #ffc107;
+  transform: rotate(180deg) scale(1.1);
+  color: #001f4d;
+}
+
+.modal-img-container {
+  position: relative;
+  z-index: 2;
+  margin-top: -45px;
+  display: flex;
+  justify-content: center;
+}
+
+.modal-img-wrapper {
+  position: relative;
+  width: 110px;
+  height: 110px;
+}
+
+.modal-img-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 130px;
+  height: 130px;
+  border: 2px solid rgba(255, 193, 7, 0.4);
+  border-radius: 50%;
+  animation: rotate 20s linear infinite;
+}
+
+@keyframes rotate {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.modal-img-ring::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  background: #ffc107;
+  border-radius: 50%;
+  box-shadow: 0 0 15px #ffc107;
+}
+
+.modal-img {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  border: 4px solid #fff;
+  box-shadow: 
+    0 10px 35px rgba(0, 31, 77, 0.3),
+    0 0 0 2px rgba(255, 193, 7, 0.3);
+  display: block;
+  object-fit: cover;
+  position: relative;
+  z-index: 1;
+  animation: floatModal 3s ease-in-out infinite;
+}
+
+@keyframes floatModal {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.modal-body {
+  padding: 18px 22px 28px;
+}
+
+.modal-content h3 {
+  text-align: center;
+  color: #001f4d;
+  font-size: 1.4em;
+  margin-bottom: 6px;
+  font-weight: 800;
+}
+
+.role-modal {
+  text-align: center;
+  color: #5bb0f6;
+  font-size: 1em;
+  font-weight: 600;
+  margin-bottom: 18px;
+  position: relative;
+}
+
+.role-modal::after {
+  content: '';
+  position: absolute;
+  bottom: -7px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 45px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #ffc107, transparent);
+}
+
+.modal-info {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.info-item {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.5) 100%);
+  border: 2px solid rgba(91, 176, 246, 0.2);
+  border-radius: 14px;
+  padding: 10px 13px;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  transition: all 0.3s;
+}
+
+.info-item:hover {
+  transform: translateX(6px);
+  border-color: #ffc107;
+  background: rgba(255, 248, 220, 0.8);
+}
+
+.info-icon {
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg, #5bb0f6 0%, #4a9de8 100%);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1em;
+  flex-shrink: 0;
+  box-shadow: 0 3px 12px rgba(91, 176, 246, 0.3);
+}
+
+.info-text {
+  flex: 1;
+  color: #001f4d;
+  font-weight: 500;
+  line-height: 1.5;
+  font-size: 0.82em;
+}
+
+.info-text strong {
+  color: #5bb0f6;
+  font-weight: 700;
+  display: block;
+  margin-bottom: 2px;
+  font-size: 0.83em;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+@media (max-width: 768px) {
+  .navbar { padding: 10px 20px; }
+  
+  .logo-container { gap: 10px; }
+  .navbar .logo { width: 50px; height: 50px; }
+  
+  .navbar .menu {
+    display: none;
+    flex-direction: column;
+    background: rgba(255, 255, 255, 0.95);
+    position: absolute;
+    top: 85px;
+    right: 20px;
+    padding: 15px;
+    border-radius: 15px;
+  }
+  .navbar .menu.active { display: flex; }
+  .hamburger { display: flex; }
+  .section { padding: 35px 25px; margin: 20px 10px; }
+  .section h2 { font-size: 1.8em; }
+  
+  .murid-row {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 15px;
+  }
+  
+  .murid-card { max-width: 100%; padding: 18px 10px; }
+  .murid-card img { width: 68px; height: 68px; }
+  
+  .modal-content { 
+    max-width: 360px;
+    border-radius: 25px;
+  }
+  .modal-header { padding: 22px 18px 50px; }
+  .modal-body { padding: 16px 20px 25px; }
+  .modal-content h3 { font-size: 1.3em; }
+  .info-item { padding: 9px 12px; gap: 10px; }
+  .info-icon { width: 33px; height: 33px; font-size: 1em; }
+  .info-text { font-size: 0.78em; }
+}
+
+@media (max-width: 480px) {
+  body { padding-top: 90px; }
+  .logo-container { gap: 8px; }
+  .navbar .logo { width: 45px; height: 45px; border-width: 2px; }
+  
+  .section { padding: 30px 20px; margin: 15px 8px; }
+  .section h2 { font-size: 1.5em; }
+  
+  .murid-row {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 12px;
+  }
+  
+  .murid-card { padding: 16px 8px; }
+  .murid-card img { width: 62px; height: 62px; }
+  .murid-card .name { font-size: 0.82em; }
+  
+  .modal-content {
+    max-width: 330px;
+    border-radius: 22px;
+  }
+  
+  .modal-header { padding: 18px 15px 45px; }
+  .modal-body { padding: 14px 18px 22px; }
+  
+  .modal-img-wrapper { width: 95px; height: 95px; }
+  .modal-img { 
+    width: 95px; 
+    height: 95px;
+    border-width: 4px;
+  }
+  .modal-img-ring { 
+    width: 115px; 
+    height: 115px;
+  }
+  
+  .close {
+    width: 32px;
+    height: 32px;
+    font-size: 20px;
+    top: 10px;
+    right: 10px;
+  }
+  
+  .modal-content h3 { font-size: 1.15em; }
+  .role-modal { font-size: 0.92em; margin-bottom: 16px; }
+  .info-item { 
+    padding: 8px 10px;
+    gap: 9px;
+    border-radius: 12px;
+  }
+  .info-icon { 
+    width: 30px; 
+    height: 30px; 
+    font-size: 0.95em;
+  }
+  .info-text { font-size: 0.74em; }
+  .info-text strong { font-size: 0.8em; }
+}
+</style>
+</head>
+<body>
+
+<!-- LOADING SCREEN -->
+<div class="loading-screen" id="loadingScreen">
+  <div class="loading-particles" id="loadingParticles"></div>
+  
+  <div class="loading-content">
+    <div class="logo-loading">
+      <img src="logo_tkj-removebg-preview.jpeg" alt="TKJ Logo">
+    </div>
+    
+    <div class="loading-text">LOADING...</div>
+    
+    <div class="spinner"></div>
+    
+    <div class="progress-wrapper">
+      <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+    </div>
+    
+    <div class="percentage" id="percentage">0%</div>
+  </div>
+</div>
+
+<div class="particles" id="particles"></div>
+
+<svg class="tkj-decor router" viewBox="0 0 24 24" fill="none">
+  <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="#001f4d" stroke-width="2"/>
+  <path d="M2 17L12 22L22 17M2 12L12 17L22 12" stroke="#001f4d" stroke-width="2"/>
+</svg>
+
+<svg class="tkj-decor cpu" viewBox="0 0 24 24" fill="none">
+  <rect x="9" y="9" width="6" height="6" stroke="#001f4d" stroke-width="2"/>
+  <path d="M9 1V6M15 1V6M9 18V23M15 18V23M1 9H6M1 15H6M18 9H23M18 15H23" stroke="#001f4d" stroke-width="2"/>
+</svg>
+
+<div class="navbar">
+  <div class="logo-container">
+    <img src="LOGO SMK.jpeg" class="logo" alt="Logo TKJ">
+    <img src="logo_tkj-removebg-preview.jpeg" class="logo" alt="Logo Sekolah">
+  </div>
+  <div class="menu">
+    <a href="guru.html">Guru</a>
+    <a href="murid.html">Murid</a>
+    <a href="struktur.html">Struktur</a>
+    <a href="peraturan.html">Peraturan</a>
+    <a href="galeri.html">Galeri</a>
+    <a href="kontak.html">Kontak</a>
+  </div>
+  <div class="hamburger" onclick="toggleMenu()">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>👨‍🎓 Murid Kelas 11 TKJ</h2>
+  <div class="student-count">👥 Total: 23 Siswa</div>
+  
+  <div class="murid-row">
+    <div class="murid-card" onclick="showModal(1)">
+      <img src="AHIM-min.jpg" alt="Abdurrahim">
+      <span class="name">Abdurrahim</span>
+    </div>
+    
+    <div class="murid-card" onclick="showModal(2)">
+      <img src="amad (1)-min.jpeg" alt="Ahmad">
+      <span class="name">Ahmad</span>
+    </div>
+    
+    <div class="murid-card" onclick="showModal(3)">
+      <img src="IDUP-min.jpg" alt="Ahmad Dupriansyah">
+      <span class="name">Ahmad Dupriansyah</span>
+    </div>
+    
+    <div class="murid-card" onclick="showModal(4)">
+      <img src="NAZUA-min.jpg" alt="Ahmad Nazua">
+      <span class="name">Ahmad Nazua</span>
+    </div>
+    
+    <div class="murid-card" onclick="showModal(5)">
+      <img src="RIZWAN-min.jpg" alt="Ahmad Rizwan">
+      <span class="name">Ahmad Rizwan</span>
+    </div>
+    
+    <div class="murid-card" onclick="showModal(6)">
+      <img src="arif rahman-min.jpg" alt="Arif Rahman">
+      <span class="name">Arif Rahman</span>
+    </div>
+    
+    <div class="murid-card" onclick="showModal(7)">
+      <img src="DEWI PUTRI - Dewi Alabio-min.JPG" alt="Dewi Putri">
+      <span class="name">Dewi Putri</span>
+    </div>
+    
+    <div class="murid-card" onclick="showModal(8)">
+      <img src="Halisah Isah-min.JPG" alt="Halisah">
+      <span class="name">Halisah</span>
+    </div>
+    
+    <div class="murid-card" onclick="showModal(9)">
+      <img src="j-min.jpeg" alt="M. Amin Jazuli">
+      <span class="name">M. Amin Jazuli</span>
+    </div>
+    
+    <div class="murid-card" onclick="showModal(10)">
+      <img src="i-min.jpeg" alt="M. Ilham Fikri">
+      <span class="name">M. Ilham Fikri</span>
+    </div>
+    
+    <div class="murid-card" onclick="showModal(11)">
+      <img src="RIZAL-min.jpeg" alt="M. Khairul Rizal">
+      <span class="name">M. Khairul Rizal</span>
+    </div>
+    
+    <div class="murid-card" onclick="showModal(12)">
+      <img src="guweh-min.jpeg" alt="M. Rifa'i">
+      <span class="name">M. Rifa'i</span>
+    </div>
+    
+    <div class="murid-card" onclick="showModal(13)">
+      <img src="Muhammad Arbayu.jpeg" alt="M. Arbayu Saputra">
+      <span class="name">M. Arbayu Saputra</span>
+    </div>
+    
+    <div class="murid-card" onclick="showModal(14)">
+      <img src="K2-min.jpg" alt="M. Abdillah">
+      <span class="name">M. Abdillah</span>
+    </div>
+    
+    <div class="murid-card" onclick="showModal(15)">
+      <img src="AAN-min.jpeg" alt="M. Anshari">
+      <span class="name">M. Anshari</span>
+    </div>
+    
+    <div class="murid-card" onclick="showModal(16)">
+      <img src="f-min.jpeg" alt="M. Fadillah Abdillah">
+      <span class="name">M. Fadillah Abdillah</span>
+    </div>
+    
+    <div class="murid-card" onclick="showModal(17)">
+      <img src="h-min.jpeg" alt="M. Herianoor">
+      <span class="name">M. Herianoor</span>
+    </div>
+    
+    <div class="murid-card" onclick="showModal(18)">
+      <img src="n-min.jpeg" alt="Nurin Shahifah">
+      <span class="name">Nurin Shahifah</span>
+    </div>
+    
+    <div class="murid-card" onclick="showModal(19)">
+      <img src="RAHMAD-min.jpg" alt="Rahmad Ilahi">
+      <span class="name">Rahmad Ilahi</span>
+    </div>
+    
+    <div class="murid-card" onclick="showModal(20)">
+      <img src="r-min.jpeg" alt="Rudi">
+      <span class="name">Rudi</span>
+    </div>
+    
+    <div class="murid-card" onclick="showModal(21)">
+      <img src="s-min.jpeg"Saidah">
+      <span class="name">Saidah</span>
+    </div>
+    
+    <div class="murid-card" onclick="showModal(22)">
+      <img src="si-min.jpeg" alt="Shalahuddin">
+      <span class="name">Shalahuddin</span>
+    </div>
+    
+    <div class="murid-card" onclick="showModal(23)">
+      <img src="SURIADI-min.jpg" alt="Suriadi">
+      <span class="name">Suriadi</span>
+    </div>
+  </div>
+</div>
+
+<script>
+// ========== LOADING SCREEN ==========
+window.addEventListener('load', function() {
+  const loadingScreen = document.getElementById('loadingScreen');
+  const percentage = document.getElementById('percentage');
+  const progressBar = document.getElementById('progressBar');
+  
+  let progress = 0;
+  
+  const progressInterval = setInterval(() => {
+    if (progress < 100) {
+      progress += 2;
+      percentage.textContent = Math.floor(progress) + '%';
+      progressBar.style.width = progress + '%';
+    } else {
+      clearInterval(progressInterval);
+      
+      setTimeout(() => {
+        loadingScreen.classList.add('fade-out');
+        setTimeout(() => {
+          loadingScreen.style.display = 'none';
+        }, 500);
+      }, 200);
+    }
+  }, 30);
+});
+
+// Loading Particles
+const loadingParticles = document.getElementById('loadingParticles');
+for (let i = 0; i < 10; i++) {
+  const particle = document.createElement('div');
+  particle.className = 'loading-particle';
+  particle.style.width = particle.style.height = (Math.random() * 4 + 2) + 'px';
+  particle.style.left = Math.random() * 100 + '%';
+  particle.style.bottom = '-10px';
+  particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+  particle.style.animationDelay = Math.random() * 2 + 's';
+  loadingParticles.appendChild(particle);
+}
+
+// ========== MAIN SCRIPT ==========
+const biodataMurid = {
+  1: {img: 'AHIM-min.jpg', nama: 'Abdurrahim', tgl: '28 Februari 2009', alamat: 'Banua Hanyar', hobi: 'Jadi Ultaraman', cita: 'Jadi orang sukses', anime: ''},
+  2: {img: 'amad (1)-min.jpeg', nama: 'Ahmad', tgl: '14 September 2007 ', alamat: 'Kampung Timbul', hobi: 'Futsal', cita: 'Bos Muda', anime: 'The Meg'},
+  3: {img: 'IDUP-min.jpg', nama: 'Ahmad Dupriansyah',  tgl: ' 04 November 2009', alamat: 'Teluk Mesjid', hobi: 'Memasak', cita: 'Buka warung makan', anime: 'Kimi No Nawa'},
+  4: {img: 'NAZUA-min.jpg', nama: 'Ahmad Nazua', tgl: '07 Juli 2009', alamat: 'Bitin', hobi: 'Mancing', cita: 'Web Deveploment', anime: 'Tensei Shitara Slime Datta Ken'},
+  5: {img: 'RIZWAN-min.jpg', nama: 'Ahmad Rizwan',  tgl: '06 November 2008', alamat: 'Bitin', hobi: 'Futsal', cita: '', anime: ''},
+  6: {img: 'arif rahman-min.jpg', nama: 'Arif Rahman',  tgl: '15 September 2006', alamat: 'Danau Panggang/Pandamaan', hobi: 'Main Game', cita: 'Pengen menghasilkan cuan', anime: 'Donghua'},
+  7: {img: 'DEWI PUTRI - Dewi Alabio-min.JPG', nama: 'Dewi Putri',  tgl: '19 Mei 2009', alamat: 'Sungai Haji', hobi: 'Badminton/berkebun ', cita: 'Karyawan', anime: 'One Piece'},
+  8: {img: 'Halisah Isah-min.JPG', nama: 'Halisah',  tgl: '22 Maret 2008', alamat: 'Desa Bajawit', hobi: 'Jalan - Jalan', cita: 'Pengusaha', anime: ''},
+  9: {img: 'j-min.jpeg', nama: 'M. Amin Jazuli', tgl: '12 Maret 2008', alamat: 'Manarap', hobi: 'Badminton', cita: 'Web/Apk Devolepment', anime: 'Detective Conan'},
+  10: {img: 'i-min.jpeg', nama: 'M. Ilham Fikri', tgl: '25 Juli 2007', alamat: '', hobi: '', cita: '', anime: ''},
+  11: {img: 'RIZAL-min.jpeg', nama: 'M. Khairul Rizal', tgl: '21 Agustus 2007', alamat: 'Manarap Hulu', hobi: 'Tidur ', cita: 'AKPOL', anime: 'Rainbow Ruby'},
+  12: {img: 'guweh-min.jpeg', nama: "M. Rifa'i", tgl: '28 April 2008', alamat: 'Manarap Hulu', hobi: 'Unknown', cita: 'Pencetus Novel', anime: 'Made in Abyss'},
+  13: {img: 'Muhammad Arbayu.jpeg', nama: 'M. Arbayu Saputra',  tgl: '20 April 2008', alamat: 'Sungai Luang', hobi: 'Tidur', cita: 'Live in Peace', anime: 'Yuru Camp'},
+  14: {img: 'K2-min.jpg', nama: 'M. Abdillah', tgl: '16 September 2008', alamat: 'Sungai Haji', hobi: 'Film, Music & Olahraga ', cita: '', anime: 'Bleach & The Dark Knight '},
+  15: {img: 'AAN-min.jpeg', nama: 'M. Anshari', tgl: '14 Mei 2008', alamat: 'Sungai Tabukan', hobi: 'Membaca', cita: 'Konglomerat', anime: 'Interstellar'},
+  16: {img: 'f-min.jpeg', nama: 'M. Fadillah Abdillah', tgl: '06 Mei 2008', alamat: 'Sungai Tabukan', hobi: '', cita: '', anime: ''},
+  17: {img: 'h-min.jpeg', nama: 'M. Herianoor',  tgl: '04 Maret 2008', alamat: 'Teluk Mesjid', hobi: '', cita: '', anime: ''},
+  18: {img: 'n-min.jpeg', nama: 'Nurin Shahifah', tgl: '11 Agustus 2009', alamat: 'Bitin', hobi: '', cita: '', anime: ''},
+  19: {img: 'RAHMAD-min.jpg', nama: 'Rahmad Ilahi',  tgl: '11 Januari 2006', alamat: 'Kampung Timbul', hobi: 'Futsal', cita: '', anime: ''},
+  20: {img: 'r-min.jpeg', nama: 'Rudi', tgl: '13 Mei 2008', alamat: 'Sungai Namang', hobi: '', cita: '', anime: ''},
+  21: {img: 's-min.jpeg', nama: 'Saidah', tgl: '5 Agustus 2008', alamat: 'Manarap', hobi: '', cita: '', anime: ''},
+  22: {img: 'si-min.jpeg', nama: 'Shalahuddin', tgl: '01 Februari 2009', alamat: 'Darussalam', hobi: 'Game & Anime', cita: '', anime: ''},
+  23: {img: 'SURIADI-min.jpg', nama: 'Suriadi', tgl: '08 Agustus 2008', alamat: 'Banua Hanyar', hobi: 'Mancing', cita: 'jadi anak pngk dan penghasilan perhari lancar', anime: 'Tokyo Revengers & One Piece'}
+};
+
+function toggleMenu() {
+  document.querySelector('.navbar .menu').classList.toggle('active');
+}
+
+function showModal(id) {
+  const data = biodataMurid[id];
+  const modalId = 'modal' + id;
+  
+  let modal = document.getElementById(modalId);
+  if (!modal) {
+    modal = document.createElement('div');
+    modal.id = modalId;
+    modal.className = 'modal';
+    modal.onclick = (e) => { if (e.target === modal) closeModal(id); };
+    
+    modal.innerHTML = `
+      <div class="modal-content">
+        <div class="modal-header">
+          <span class="close" onclick="closeModal(${id})">&times;</span>
+        </div>
+        <div class="modal-img-container">
+          <div class="modal-img-wrapper">
+            <div class="modal-img-ring"></div>
+            <img src="${data.img}" alt="${data.nama}" class="modal-img">
+          </div>
+        </div>
+        <div class="modal-body">
+          <h3>${data.nama}</h3>
+          <p class="role-modal">Siswa 11 TKJ</p>
+          <div class="modal-info">
+            <div class="info-item">
+              <div class="info-icon">🎂</div>
+              <div class="info-text">
+                <strong>Tanggal Lahir</strong>
+                ${data.tgl}
+              </div>
+            </div>
+            <div class="info-item">
+              <div class="info-icon">📍</div>
+              <div class="info-text">
+                <strong>Alamat</strong>
+                ${data.alamat}
+              </div>
+            </div>
+            <div class="info-item">
+              <div class="info-icon">🎮</div>
+              <div class="info-text">
+                <strong>Hobi</strong>
+                ${data.hobi}
+              </div>
+            </div>
+            <div class="info-item">
+              <div class="info-icon">🎯</div>
+              <div class="info-text">
+                <strong>Cita-cita</strong>
+                ${data.cita}
+              </div>
+            </div>
+            <div class="info-item">
+              <div class="info-icon">🎬</div>
+              <div class="info-text">
+                <strong>Film/Anime Favorit</strong>
+                ${data.anime}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(modal);
+  }
+  
+  modal.classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(id) {
+  const modal = document.getElementById('modal' + id);
+  if (modal) {
+    modal.classList.remove('show');
+    document.body.style.overflow = 'auto';
+  }
+}
+
+const particlesContainer = document.getElementById('particles');
+for (let i = 0; i < 30; i++) {
+  const p = document.createElement('div');
+  p.className = 'particle';
+  p.style.left = Math.random() * 100 + '%';
+  p.style.animationDelay = Math.random() * 15 + 's';
+  p.style.animationDuration = (Math.random() * 10 + 10) + 's';
+  particlesContainer.appendChild(p);
+}
+</script>
+
+</body>
+</html>

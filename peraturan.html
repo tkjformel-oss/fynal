@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Peraturan Kelas 11 TKJ</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+/* ========== LOADING SCREEN ========== */
+.loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, #5bb0f6 0%, #ffffff 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  transition: opacity 0.5s ease;
+}
+
+.loading-screen.fade-out {
+  opacity: 0;
+}
+
+.loading-particles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  opacity: 0.3;
+}
+
+.loading-particle {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  animation: simple-float linear infinite;
+}
+
+@keyframes simple-float {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(-100vh);
+    opacity: 0;
+  }
+}
+
+.loading-content {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+}
+
+.logo-loading {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 30px;
+}
+
+.logo-loading img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 4px solid #fff;
+  box-shadow: 0 10px 40px rgba(91, 176, 246, 0.4);
+  animation: pulse-logo 2s ease-in-out infinite;
+}
+
+@keyframes pulse-logo {
+  0%, 100% { 
+    transform: scale(1);
+    box-shadow: 0 10px 40px rgba(91, 176, 246, 0.4);
+  }
+  50% { 
+    transform: scale(1.1);
+    box-shadow: 0 15px 50px rgba(255, 193, 7, 0.6);
+  }
+}
+
+.loading-text {
+  font-size: 2em;
+  font-weight: 800;
+  color: #001f4d;
+  text-align: center;
+  margin-bottom: 20px;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.spinner {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 20px;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #ffc107;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.progress-wrapper {
+  width: 300px;
+  margin: 0 auto;
+}
+
+.progress-container {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(91, 176, 246, 0.2);
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #5bb0f6, #ffc107);
+  border-radius: 10px;
+  width: 0%;
+  transition: width 0.3s ease;
+}
+
+.percentage {
+  text-align: center;
+  font-size: 1.2em;
+  font-weight: 700;
+  color: #001f4d;
+  margin-top: 15px;
+}
+
+/* ========== MAIN STYLES ========== */
+body {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #5bb0f6 0%, #ffffff 100%);
+  color: #001f4d;
+  position: relative;
+  overflow-x: hidden;
+  padding-top: 100px;
+  padding-bottom: 50px;
+}
+
+.particles {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+  top: 0;
+  left: 0;
+}
+
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  animation: float-particle 15s infinite;
+}
+
+@keyframes float-particle {
+  0%, 100% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% {
+    transform: translateY(-100vh) translateX(100px);
+    opacity: 0;
+  }
+}
+
+.tkj-decor {
+  position: fixed;
+  opacity: 0.15;
+  animation: float 10s infinite ease-in-out alternate;
+  z-index: 0;
+  filter: drop-shadow(0 0 10px rgba(91, 176, 246, 0.3));
+}
+
+@keyframes float {
+  0%, 100% { 
+    transform: translateY(0) rotate(0deg); 
+  }
+  50% { 
+    transform: translateY(-30px) rotate(10deg); 
+  }
+}
+
+.router { top: 10%; left: 10%; width: 70px; animation-delay: 0s; }
+.cpu { top: 60%; left: 80%; width: 70px; animation-delay: 2s; }
+.chip { top: 30%; left: 75%; width: 60px; animation-delay: 4s; }
+.gear { top: 75%; left: 15%; width: 80px; animation-delay: 1s; }
+.lan { top: 45%; left: 5%; width: 60px; animation-delay: 3s; }
+
+.navbar {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.25);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(20px);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 40px;
+  box-shadow: 0 4px 20px rgba(91, 176, 246, 0.1);
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.navbar .logo {
+  width: 65px;
+  height: 65px;
+  border: 3px solid #fff;
+  border-radius: 50%;
+  background: white;
+  object-fit: cover;
+  box-shadow: 0 5px 20px rgba(91, 176, 246, 0.3);
+  transition: transform 0.3s;
+}
+
+.navbar .logo:hover {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.navbar .menu {
+  display: flex;
+  gap: 10px;
+}
+
+.navbar .menu a {
+  text-decoration: none;
+  color: #001f4d;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 25px;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.navbar .menu a:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 193, 7, 0.3), transparent);
+  transition: left 0.5s;
+}
+
+.navbar .menu a:hover:before {
+  left: 100%;
+}
+
+.navbar .menu a:hover {
+  background: #ffc107;
+  color: #001f4d;
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(255, 193, 7, 0.3);
+}
+
+.navbar .menu a:active {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(255, 193, 7, 0.3);
+}
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.hamburger div {
+  width: 28px;
+  height: 3px;
+  background: #001f4d;
+  border-radius: 3px;
+  transition: all 0.3s;
+}
+
+.hamburger:hover div {
+  background: #ffc107;
+}
+
+.section {
+  max-width: 900px;
+  margin: 30px auto;
+  background: rgba(255, 255, 255, 0.35);
+  border: 3px solid rgba(255, 255, 255, 0.5);
+  border-radius: 30px;
+  padding: 50px 60px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 15px 50px rgba(0, 31, 77, 0.1);
+  position: relative;
+  z-index: 2;
+  animation: fadeIn 0.8s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.section h2 {
+  margin-bottom: 50px;
+  color: #001f4d;
+  text-align: center;
+  font-size: 2.5em;
+  font-weight: 800;
+  text-shadow: 0 3px 10px rgba(91, 176, 246, 0.2);
+  background: linear-gradient(135deg, #001f4d 0%, #5bb0f6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.section-logo {
+  text-align: center;
+  margin-bottom: 20px;
+  animation: fadeIn 0.8s ease-out;
+}
+
+.section-logo img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  opacity: 0.9;
+  filter: drop-shadow(0 4px 15px rgba(91, 176, 246, 0.3));
+}
+
+.peraturan-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.peraturan-item {
+  border: 3px solid rgba(255, 255, 255, 0.6);
+  border-radius: 20px;
+  padding: 18px 22px;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  box-shadow: 0 8px 25px rgba(91, 176, 246, 0.15);
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  position: relative;
+  overflow: hidden;
+  animation: slideIn 0.6s ease-out backwards;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.peraturan-item:nth-child(1) { animation-delay: 0.1s; }
+.peraturan-item:nth-child(2) { animation-delay: 0.2s; }
+.peraturan-item:nth-child(3) { animation-delay: 0.3s; }
+.peraturan-item:nth-child(4) { animation-delay: 0.4s; }
+.peraturan-item:nth-child(5) { animation-delay: 0.5s; }
+.peraturan-item:nth-child(6) { animation-delay: 0.6s; }
+
+.peraturan-item:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(91, 176, 246, 0.2), transparent);
+  transition: left 0.6s;
+}
+
+.peraturan-item:hover:before {
+  left: 100%;
+}
+
+.peraturan-item:hover {
+  transform: translateX(10px) scale(1.02);
+  box-shadow: 0 12px 35px rgba(91, 176, 246, 0.25);
+  border-color: #ffc107;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.peraturan-item:active {
+  transform: translateX(5px) scale(1.01);
+}
+
+.icon-box {
+  flex-shrink: 0;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #5bb0f6 0%, #4a9de8 100%);
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8em;
+  box-shadow: 0 5px 20px rgba(91, 176, 246, 0.3);
+  transition: all 0.3s;
+}
+
+.peraturan-item:hover .icon-box {
+  transform: rotate(10deg) scale(1.1);
+  background: linear-gradient(135deg, #ffc107 0%, #ffda47 100%);
+  box-shadow: 0 8px 30px rgba(255, 193, 7, 0.4);
+}
+
+.peraturan-item span {
+  color: #001f4d;
+  font-weight: 500;
+  font-size: 1em;
+  line-height: 1.6;
+  position: relative;
+  z-index: 1;
+}
+
+.peraturan-item span strong {
+  font-weight: 800;
+  color: #001f4d;
+  display: block;
+  margin-bottom: 5px;
+  font-size: 1.1em;
+}
+
+.number {
+  position: absolute;
+  left: 15px;
+  top: 15px;
+  width: 30px;
+  height: 30px;
+  background: rgba(255, 193, 7, 0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.9em;
+  color: #001f4d;
+}
+
+/* Responsive untuk HP */
+@media (max-width: 768px) {
+  body {
+    padding-top: 90px;
+  }
+
+  .navbar {
+    padding: 10px 20px;
+  }
+  
+  .logo-container { gap: 10px; }
+  .navbar .logo { width: 50px; height: 50px; }
+  
+  .navbar .menu {
+    display: none;
+    flex-direction: column;
+    background: rgba(255, 255, 255, 0.95);
+    position: absolute;
+    top: 75px;
+    right: 20px;
+    padding: 15px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 31, 77, 0.2);
+    backdrop-filter: blur(20px);
+    min-width: 180px;
+  }
+  
+  .navbar .menu.active {
+    display: flex;
+    animation: slideDown 0.3s ease-out;
+  }
+  
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .hamburger {
+    display: flex;
+  }
+  
+  .section {
+    padding: 30px 20px;
+    margin: 20px 15px;
+    border-radius: 25px;
+  }
+  
+  .section h2 {
+    font-size: 1.8em;
+    margin-bottom: 35px;
+  }
+
+  .section-logo img {
+    width: 65px;
+    height: 65px;
+  }
+  
+  .peraturan-list {
+    gap: 15px;
+  }
+
+  .peraturan-item {
+    padding: 16px 18px;
+    gap: 15px;
+  }
+  
+  .icon-box {
+    width: 55px;
+    height: 55px;
+    font-size: 1.6em;
+  }
+  
+  .peraturan-item span {
+    font-size: 0.9em;
+  }
+
+  .number {
+    width: 28px;
+    height: 28px;
+    font-size: 0.85em;
+  }
+
+  .tkj-decor {
+    width: 50px !important;
+  }
+
+  .logo-loading {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .loading-text {
+    font-size: 1.6em;
+  }
+  
+  .progress-wrapper {
+    width: 250px;
+  }
+  
+  .spinner {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+@media (max-width: 480px) {
+  body { padding-top: 90px; }
+  .logo-container { gap: 8px; }
+  .navbar .logo { width: 45px; height: 45px; border-width: 2px; }
+  
+  .section {
+    padding: 25px 15px;
+    margin: 15px 10px;
+  }
+
+  .section h2 {
+    font-size: 1.5em;
+    margin-bottom: 30px;
+  }
+
+  .section-logo img {
+    width: 55px;
+    height: 55px;
+  }
+
+  .peraturan-list {
+    gap: 12px;
+  }
+  
+  .peraturan-item {
+    flex-direction: column;
+    text-align: center;
+    padding: 18px 15px;
+    gap: 12px;
+    border-radius: 18px;
+  }
+
+  .icon-box {
+    width: 60px;
+    height: 60px;
+    font-size: 1.7em;
+  }
+
+  .peraturan-item span {
+    font-size: 0.85em;
+  }
+
+  .number {
+    left: 12px;
+    top: 12px;
+    width: 26px;
+    height: 26px;
+    font-size: 0.8em;
+  }
+
+  .logo-loading {
+    width: 90px;
+    height: 90px;
+  }
+  
+  .loading-text {
+    font-size: 1.4em;
+  }
+  
+  .progress-wrapper {
+    width: 220px;
+  }
+  
+  .spinner {
+    width: 45px;
+    height: 45px;
+    border-width: 3px;
+  }
+
+  .percentage {
+    font-size: 1em;
+  }
+}
+
+@media (max-width: 360px) {
+  .section h2 {
+    font-size: 1.3em;
+  }
+
+  .peraturan-item {
+    padding: 15px 12px;
+  }
+
+  .icon-box {
+    width: 55px;
+    height: 55px;
+    font-size: 1.5em;
+  }
+
+  .peraturan-item span {
+    font-size: 0.8em;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- LOADING SCREEN -->
+<div class="loading-screen" id="loadingScreen">
+  <div class="loading-particles" id="loadingParticles"></div>
+  
+  <div class="loading-content">
+    <div class="logo-loading">
+      <img src="logo_tkj-removebg-preview.jpeg" alt="TKJ Logo">
+    </div>
+    
+    <div class="loading-text">LOADING...</div>
+    
+    <div class="spinner"></div>
+    
+    <div class="progress-wrapper">
+      <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+    </div>
+    
+    <div class="percentage" id="percentage">0%</div>
+  </div>
+</div>
+
+<div class="particles" id="particles"></div>
+
+<svg class="tkj-decor router" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="#001f4d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M2 17L12 22L22 17" stroke="#001f4d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M2 12L12 17L22 12" stroke="#001f4d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+
+<svg class="tkj-decor cpu" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="9" y="9" width="6" height="6" stroke="#001f4d" stroke-width="2"/>
+  <path d="M9 1V6M15 1V6M9 18V23M15 18V23M1 9H6M1 15H6M18 9H23M18 15H23" stroke="#001f4d" stroke-width="2"/>
+</svg>
+
+<svg class="tkj-decor chip" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="5" y="5" width="14" height="14" rx="2" stroke="#001f4d" stroke-width="2"/>
+  <circle cx="12" cy="12" r="3" stroke="#001f4d" stroke-width="2"/>
+</svg>
+
+<svg class="tkj-decor gear" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="12" cy="12" r="3" stroke="#001f4d" stroke-width="2"/>
+  <path d="M12 1V4M12 20V23M23 12H20M4 12H1M20.49 20.49L18.36 18.36M5.64 5.64L3.51 3.51M20.49 3.51L18.36 5.64M5.64 18.36L3.51 20.49" stroke="#001f4d" stroke-width="2"/>
+</svg>
+
+<svg class="tkj-decor lan" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="12" cy="12" r="10" stroke="#001f4d" stroke-width="2"/>
+  <path d="M2 12H22M12 2C14.5 4.5 16 8 16 12C16 16 14.5 19.5 12 22M12 2C9.5 4.5 8 8 8 12C8 16 9.5 19.5 12 22" stroke="#001f4d" stroke-width="2"/>
+</svg>
+
+<div class="navbar">
+  <div class="logo-container">
+    <img src="LOGO SMK.jpeg" class="logo" alt="Logo TKJ">
+    <img src="logo_tkj-removebg-preview.jpeg" class="logo" alt="Logo Sekolah">
+  </div>
+  <div class="menu">
+    <a href="guru.html">Guru</a>
+    <a href="murid.html">Murid</a>
+    <a href="struktur.html">Struktur</a>
+    <a href="peraturan.html">Peraturan</a>
+    <a href="galeri.html">Galeri</a>
+    <a href="kontak.html">Kontak</a>
+  </div>
+  <div class="hamburger" onclick="toggleMenu()">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-logo">
+    <img src="logo_tkj-removebg-preview.jpeg" alt="Logo TKJ">
+  </div>
+  <h2>📋 Peraturan Kelas 11 TKJ</h2>
+  <div class="peraturan-list">
+    <div class="peraturan-item">
+      <div class="number">1</div>
+      <div class="icon-box">⏰</div>
+      <span><strong>DISIPLIN</strong>Semua siswa datang tepat waktu, tidak keluar kelas tanpa izin dan taat aturan dengan kesadaran sendiri</span>
+    </div>
+    
+    <div class="peraturan-item">
+      <div class="number">2</div>
+      <div class="icon-box">🧹</div>
+      <span><strong>KEBERSIHAN</strong>Semua siswa menjaga kebersihan kelas dan lingkungan sekolah, tidak membuang sampah sembarang dan bertanggung jawab saat piket</span>
+    </div>
+    
+    <div class="peraturan-item">
+      <div class="number">3</div>
+      <div class="icon-box">🤝</div>
+      <span><strong>SOSIAL</strong>Saya selalu membantu teman, menjaga kekompakkan kelas, dan ikut berperan dalam kegiatan sekolah dengan sikap positif</span>
+    </div>
+    
+    <div class="peraturan-item">
+      <div class="number">4</div>
+      <div class="icon-box">🙏</div>
+      <span><strong>SIKAP</strong>Semua siswa harus bersikap sopan, menghormati semua orang, dan menjaga sikap baik dimana pun berada</span>
+    </div>
+    
+    <div class="peraturan-item">
+      <div class="number">5</div>
+      <div class="icon-box">📚</div>
+      <span><strong>AKADEMIK</strong>Semua siswa harus mengerjakan tugas dengan jujur, tidak menyontek, berusaha aktif dalam belajar</span>
+    </div>
+    
+    <div class="peraturan-item">
+      <div class="number">6</div>
+      <div class="icon-box">💻</div>
+      <span><strong>TEKNOLOGI</strong>Semua siswa menggunakan teknologi dan media sosial yang bijak, tidak menyebarkan hoax, membully, atau membuat konten yang merugikan</span>
+    </div>
+  </div>
+</div>
+
+<script>
+// Loading Screen
+window.addEventListener('load', function() {
+  const loadingScreen = document.getElementById('loadingScreen');
+  const percentage = document.getElementById('percentage');
+  const progressBar = document.getElementById('progressBar');
+  
+  let progress = 0;
+  
+  const progressInterval = setInterval(() => {
+    if (progress < 100) {
+      progress += 2;
+      percentage.textContent = Math.floor(progress) + '%';
+      progressBar.style.width = progress + '%';
+    } else {
+      clearInterval(progressInterval);
+      
+      setTimeout(() => {
+        loadingScreen.classList.add('fade-out');
+        setTimeout(() => {
+          loadingScreen.style.display = 'none';
+        }, 500);
+      }, 200);
+    }
+  }, 30);
+});
+
+// Loading Particles
+const loadingParticles = document.getElementById('loadingParticles');
+for (let i = 0; i < 10; i++) {
+  const particle = document.createElement('div');
+  particle.className = 'loading-particle';
+  particle.style.width = particle.style.height = (Math.random() * 4 + 2) + 'px';
+  particle.style.left = Math.random() * 100 + '%';
+  particle.style.bottom = '-10px';
+  particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+  particle.style.animationDelay = Math.random() * 2 + 's';
+  loadingParticles.appendChild(particle);
+}
+
+function toggleMenu() {
+  const menu = document.querySelector('.navbar .menu');
+  menu.classList.toggle('active');
+}
+
+const particlesContainer = document.getElementById('particles');
+for (let i = 0; i < 30; i++) {
+  const particle = document.createElement('div');
+  particle.className = 'particle';
+  particle.style.left = Math.random() * 100 + '%';
+  particle.style.animationDelay = Math.random() * 15 + 's';
+  particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+  particlesContainer.appendChild(particle);
+}
+</script>
+
+</body>
+</html>
